@@ -15,4 +15,13 @@ if __name__ == "__main__":
     data_heart = "./Data/heart.csv"
     df_heart = pd.read_csv(data_heart)
 
-    print(df_heart.head(5))
+    
+    #Splitting Dataset
+    df_features = df_heart.drop(['target'], axis=1)
+    df_target = df_heart['target']
+
+    #Normalizing Features
+    df_features = StandardScaler().fit_transform(df_features)
+
+    #Train Test Split
+    X_train, X_test, y_train, y_test = train_test_split(df_features, df_target, test_size=0.3, random_state=42)
