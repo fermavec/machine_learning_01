@@ -56,7 +56,7 @@ if __name__ == "__main__":
     print(modelRidge.coef_)
 
     #Elastic Net
-    modelElastic = ElasticNet(random_state=0).fit(X_train, y_train)
+    modelElastic = ElasticNet(alpha=1, random_state=0).fit(X_train, y_train)
     y_predict_elastic = modelElastic.predict(X_test)
 
     #Loss
