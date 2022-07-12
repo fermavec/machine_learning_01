@@ -31,4 +31,17 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = train_test_split(df_features, df_target, test_size=0.3, random_state=42)
     #print(X_train.shape)
     #print(y_train.shape)
+
+    #Applying KPCA function
+    kpca = KernelPCA(n_components=4, kernel='poly')
+    kpca.fit(X_train)
     
+    #Algorythm
+    dt_train = kpca.transform(X_train)
+    dt_test = kpca.transform(X_test)
+
+    logistic = LogisticRegression(solver='lbfgs')
+    
+    #Accuracy
+    logistic.fit(dt_train, y_train)
+    print('SCORE KPCA: ', logistic.score(dt_test, y_test))
