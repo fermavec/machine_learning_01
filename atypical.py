@@ -1,5 +1,5 @@
 #Libraries
-from math import gamma
+import matplotlib.pyplot as plt
 import pandas as pd
 #Models
 from sklearn.linear_model import RANSACRegressor, HuberRegressor
@@ -28,3 +28,19 @@ if __name__ == "__main__":
         'RANSAC': RANSACRegressor(), #It is a metaestimator. Linear Regresion by default
         'HUBER': HuberRegressor(epsilon=1.35) #1.35 by default >+atypicaldata <-atypicaldata
     }
+
+    #Working with the estimators
+    for name, estimator in estimators.items():
+        estimator.fit(X_train, y_train)
+        prediction = estimator.predict(X_test)
+
+        print('='*32)
+        print(name)
+        print('MSE', mean_squared_error(y_test, prediction))
+
+        plt.ylabel('Predicted Score')
+        plt.xlabel('Real Score')
+        plt.title(name)
+        plt.scatter(y_test, prediction)
+        plt.plot(prediction, prediction,'r--')
+        plt.show()
