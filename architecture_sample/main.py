@@ -1,10 +1,16 @@
-from ctypes import util
 from utils import Utils
+from models import Models
 
-
-#Entry point
 if __name__ == "__main__":
-    utils = Utils()
 
-    df = utils.load_csv('./in/felicidad_corrupt.csv')
-    print(df.head(5))
+    utils = Utils()
+    models = Models()
+
+    data = utils.load_from_csv('./in/felicidad.csv')
+    X, y = utils.features_target(data, ['score','rank', 'country'],['score'])
+
+    models.grid_training(X,y)
+
+    print(data)
+
+    #creacion_exportacion_modelo
